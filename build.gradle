@@ -22,3 +22,67 @@ dependencies {
 	implementation "org.apache.maven:maven-artifact:3.8.5"
 }
 
+publishing {
+	repositories {
+		maven {
+			url "https://repo.u-team.info"
+			credentials {
+				username = "maven"
+				password = getValue("maven.password")
+			}
+		}
+	}
+	publications {
+		mavenJava(MavenPublication) {
+			from components.java
+			
+			groupId = project.group
+			artifactId = project.archivesBaseName
+			version = project.version
+			
+			pom {
+				name = project.archivesBaseName
+				description = "Update-Checker"
+				url = "https://github.com/HyCraftHD/Update-Checker"
+				scm {
+					url = "https://github.com/HyCraftHD/Update-Checker"
+					connection = "scm:git:git://github.com/HyCraftHD/Update-Checker.git"
+					developerConnection = "scm:git:git@github.com:HyCraftHD/Update-Checker.git"
+				}
+				issueManagement {
+					system = "github"
+					url = "https://github.com/HyCraftHD/Update-Checker/issues"
+				}
+				licenses {
+					license {
+						name = "LGPL V2.1"
+						url = "https://github.com/HyCraftHD/Update-Checker/blob/main/LICENSE"
+						distribution = "repo"
+					}
+				}
+				developers {
+					developer {
+						name = "HyCraftHD"
+					}
+					developer {
+						name = "Forge"
+					}
+				}
+			}
+		}
+	}
+}
+}
+
+def getValue(name) {
+def envVariable = System.getenv(name)
+if(envVariable != null) {
+	return envVariable
+} else {
+	if (project.hasProperty(name)) {
+		return project.getProperty(name)
+	}
+}
+return null;
+}
+
