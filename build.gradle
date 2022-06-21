@@ -1,7 +1,7 @@
 apply plugin: "java"
 apply plugin: "maven-publish"
 
-group = "info.u-team.update_checker"
+group = "net.hycrafthd.update_checker"
 archivesBaseName = "update_checker"
 version = "1.0.0"
 
